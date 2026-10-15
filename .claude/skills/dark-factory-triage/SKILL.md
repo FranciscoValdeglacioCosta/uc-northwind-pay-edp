@@ -74,7 +74,8 @@ a success state; a green run bought by moving the oracle is not.
 Reproduce the canonical case:
 ```bash
 modern/.venv/bin/python modern/scripts/factory_e2e.py --type 06
-# stage 3 STALL (the room builds the package) · stage 6 CONFIRMED_LEGACY_DEFECT
+# stage 3 PASS (five-file package on main) · stage 6 CONFIRMED_LEGACY_DEFECT
+# in a Night 5 replay worktree without the package, stage 3 STALLs first
 ```
 
 ## 4 · Dagster is dark

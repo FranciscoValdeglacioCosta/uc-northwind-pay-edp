@@ -122,3 +122,5 @@ init`, project seams. Not required to open Pass 5 on this night.
   Types `02`–`05` ingest packages authored; their leaves remain `signed_off: false`.
 - 2026-08-28 (Night 5): Type 06 got its own sign, [`consensus-type-06.md`](consensus-type-06.md).
   This ingest sign was not recut.
+- 2026-09-10: all Type `01`–`05` ingest leaves accepted **Tier 2, owner-supervised**
+  (`cvg/.taskspec/acceptance/`). This ingest sign was not recut.

@@ -7,7 +7,7 @@ a referee that lives in a player's folder is not a referee.
 ```text
 validation/
 ├── oracle/           the legacy referee — one module per type + tests
-└── golden-match/     the modern referee — attached for Types 01 and 06 via modern/validation/
+└── golden-match/     the modern referee — attached for Types 01–06 via modern/validation/
 ```
 
 ---
@@ -115,9 +115,10 @@ exact scale-two lexeme or it is refused — no padding, no
 `golden-match` is the modern referee. The module was on the tree before the
 modern plant so the week had a comparison contract to attach; the plant
 built during the week attaches to it through
-`modern/validation/attach_type01.py` and `attach_type06.py`, and the
+`modern/validation/attach_type01.py` … `attach_type06.py`, and the
 packets land under `evidence/` (Type `06`: `evidence/factory/type-06.json`,
-`CONFIRMED_LEGACY_DEFECT`). Types `02`–`05` are not attached yet. See
+`CONFIRMED_LEGACY_DEFECT`). Types `02`–`05` were attached on 2026-09-10;
+only Type `01` has a golden-match test in `tests/modern/`. See
 [`../plans/modern.md`](../plans/modern.md).
 
 ## What must not change

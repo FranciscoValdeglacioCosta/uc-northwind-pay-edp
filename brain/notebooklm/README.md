@@ -4,6 +4,8 @@ Human brain for the **whole drop** (types `01`–`05`), not only Day 1. The rest
 
 Handout: [`northwind-pay-brain.zip`](northwind-pay-brain.zip)
 
+The `0N-*.md` packs are upload files, not repo pages. `build.sh` concatenates source READMEs from `spec/` without rewriting their relative links, so links inside the packs do not resolve on GitHub. Read the originals in [`spec/`](../../spec/README.md).
+
 | Pack | What |
 |---|---|
 | `00-how-this-notebook-thinks.md` | Inbound only. Cite or abstain. |

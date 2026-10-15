@@ -27,11 +27,10 @@ tr-dN-<seat>.cc.vtt
 | [`tr-d1-archaeologist.cc.vtt`](tr-d1-archaeologist.cc.vtt) | 1 | Archaeologist (SA + AI) — **on disk** |
 | [`tr-d2-translator.cc.vtt`](tr-d2-translator.cc.vtt) | 2 | Translator (SWE) — **on disk** |
 | [`tr-d3-constructor.cc.vtt`](tr-d3-constructor.cc.vtt) | 3 | Constructor (DE + analytics) — **on disk** |
-| [`tr-d4-orchestrator.cc.vtt`](tr-d4-orchestrator.cc.vtt) | 4 | Orchestrator — **on disk**, not yet committed |
-| [`tr-d5-dark-factory.cc.vtt`](tr-d5-dark-factory.cc.vtt) | 5 | Dark Factory — **on disk**, not yet committed |
+| [`tr-d4-orchestrator.cc.vtt`](tr-d4-orchestrator.cc.vtt) | 4 | Orchestrator — **on disk** |
+| [`tr-d5-dark-factory.cc.vtt`](tr-d5-dark-factory.cc.vtt) | 5 | Dark Factory — **on disk** |
 
-`.cc.vtt` = WebVTT closed captions. All five Nights are captioned; the
-last two are untracked in git until someone adds them.
+`.cc.vtt` = WebVTT closed captions. All five Nights are captioned and tracked.
 
 ---
 
