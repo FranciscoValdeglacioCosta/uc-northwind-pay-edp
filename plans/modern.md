@@ -40,7 +40,7 @@ nothing puts Type `06` in `spec/` before that day.
 
 ## Status and evidence boundary
 
-**Partly on this tree (after Night 5, 2026-08-28).** This file was written
+**Partly on this tree (after Night 5, 2026-08-28; Types `02`–`05` lakehouse added 2026-09-10).** This file was written
 before `modern/` existed and keeps its imperative mood on purpose: the
 boundaries, golden-match rules, per-type checklist, and definition of
 done below are what "done" means. The table records what the week
@@ -51,8 +51,8 @@ actually built; the rest is still the work order.
 | Legacy Types `01`–`05` | Implemented and live verified through contracts, DataGen, SFTP, Java, PostgreSQL, reconciliation, oracle, and evidence |
 | Type `01` parity | Explicitly standardized and independently reverified |
 | Dark Factory | `modern/scripts/factory_e2e.py` — the seven-stage read-only witness. Ran on Type `06` and stalled `CONFIRMED_LEGACY_DEFECT` (`evidence/factory/type-06.json`) |
-| Modern pipeline | **Built for Types `01` and `06`**: five-file packages → `modern/landing/` Parquet → dlt register-only (`modern/lakehouse/dlt/registration.py`) → dbt Bronze/Silver/Gold (`modern/dbt/`) → golden-match (`modern/validation/attach_type0{1,6}.py`) → Dagster lineage (`modern/orchestration/definitions.py`) |
-| Modern Types `02`–`05` | **Ingest packages built** (Night 4, five files each under `modern/ingestion/src/northwind_pay/types/`). **Lakehouse leaves not built** — no dlt/dbt/golden-match for `02`–`05`. Inbound packs are in [`spec/`](../spec/README.md); build the rest from the drop and the contract, not from git history |
+| Modern pipeline | **Full dbt line built for Types `01` and `06`**: five-file packages → `modern/landing/` Parquet → dlt register-only (`modern/lakehouse/dlt/registration.py`) → dbt Bronze/Silver/Gold (`modern/dbt/`) → golden-match (`modern/validation/attach_type0{1,6}.py`) → Dagster lineage (`modern/orchestration/definitions.py`) |
+| Modern Types `02`–`05` | **Ingest packages built** (Night 4, five files each under `modern/ingestion/src/northwind_pay/types/`). **Lakehouse built 2026-09-10**: `modern/scripts/run_type0N_gold.py` (dlt register → Bronze/Silver/Gold as DuckDB SQL inside the script — **no dbt models**) and `modern/validation/attach_type0N.py` (golden-match). Not wired into Dagster, `night_e2e.sh`, or `tests/modern/`. All sixteen Type `01`–`05` leaves accepted Tier 2, owner-supervised, the same day |
 | Release boundary | Local working-tree and committed-branch content only. **No CI exists**; no clean-checkout or production-readiness claim may be made from this proof |
 
 The proven shared baseline is five types. Type `06` entered on Night 5 with
@@ -70,7 +70,7 @@ and prohibitions below are binding on the code, not descriptive of it.
 |---|---|
 | Five signed contracts and `main/` oracles (six after Night 5) | ✓ Type `01` five-file package on Days 2–3 (parser leaf Tuesday; emit + Gold Wednesday). ✓ Types `02`–`05` ingest packages generated Thursday. ✓ Type `06` package Friday |
 | Legacy observations you can re-run any time | ✓ Deterministic sanitized Parquet and `modern/landing/` |
-| `validation/golden-match/golden_match.py` — the referee module | ✓ dlt + DuckLake/DuckDB + dbt Bronze/Silver/Gold — Types `01` and `06` only |
+| `validation/golden-match/golden_match.py` — the referee module | ✓ dlt + DuckLake/DuckDB + dbt Bronze/Silver/Gold — Types `01` and `06`. Types `02`–`05`: dlt + DuckDB SQL Bronze/Silver/Gold, no dbt (2026-09-10) |
 | Inbound packs `01`–`05` under [`spec/`](../spec/README.md) (`06` since Night 5) | ✓ Dagster lineage. Read-only FastAPI and narrow MCP — **not built** |
 | Second Brain ([`brain/notebooklm/`](../brain/notebooklm/README.md)) + OntoLayer | Queried as evidence for ADRs. They do not replace a signed ADR |
 | This specification | ✓ `tests/modern/`, `modern/scripts/` (`bootstrap.sh`, `night_e2e.sh`, `factory_e2e.py`; there is **no** `make modern-*` target), `evidence/` |
@@ -215,10 +215,9 @@ or refuse the **same** batch IDs.
   - Type `03`: exact 240-byte CRLF remittance records;
   - Type `04`: heterogeneous fixed widths and inherited return context;
   - Type `05`: quote-aware semicolon CSV, NFC, decimal comma, and `HALF_UP`.
-  Modern Type `05` is **not built**. The contract, oracle, and a live
-  legacy execution are docked in
+  Modern Type `05` is built: ingest on Night 4, lakehouse on 2026-09-10.
+  The kit it was built from is docked in
   [`spec/type-05-merchant-fee-assessment/`](../spec/type-05-merchant-fee-assessment/README.md).
-  Build it from that kit, not from git history.
 - Exact `Decimal` financial arithmetic. Python's default rounding is
   `ROUND_HALF_EVEN`. Type `05` forbids it.
 - Contract-approved masking, tokenization, and safe passthrough rules.
@@ -438,8 +437,7 @@ module to invent slack.
 
 ## Relationship to Dark Factory
 
-Dark Factory is the next repository phase, but it remains implementation
-pending. Its first slice may consume the completed legacy observation surfaces
+Dark Factory's first slice is built (`modern/scripts/factory_e2e.py`, Night 5). It may consume the completed legacy observation surfaces
 read-only. Modern can later become another independent observation channel.
 
 Dark Factory must not:
@@ -461,7 +459,7 @@ implementation was removed so the room would build it; the week then
 rebuilt it for Type `01` (Nights 2–3), generated `02`–`05` ingest (Night
 4), and ran the sixth type through the same order on Night 5. Read the
 imperative mood as the order of work, not as a claim that nothing is on
-disk. Types `02`–`05` lakehouse leaves are the open work order.
+disk. Types `02`–`05` lakehouse leaves were built after the week (2026-09-10) as DuckDB SQL rather than dbt.
 
 Map to the nights (see [`agenda/`](../agenda/README.md)):
 
@@ -599,7 +597,7 @@ Parquet, lakehouse, dbt, or Gold artifacts that were never created.
 
 ### Closed during the week (Converge / Seamwise, not in this file)
 
-These ten questions were closed during the week as ADRs `0001`–`0012`
+These ten questions were closed during the week as ADRs `0001`–`0013`
 under [`docs/adrs/`](../docs/README.md) (landing on Night 2, lakehouse on
 Night 3, Dagster on Night 4). The list stays as the checklist a fresh
 run must re-close. Last run's ADRs were removed so the room would write

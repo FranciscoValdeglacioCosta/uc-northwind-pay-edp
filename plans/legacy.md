@@ -110,7 +110,7 @@ the generic synchronous runner, and the automatic manifest-ready worker.
 | Live automatic-worker proof | Live verified 2026-07-24 through the full `make test` gate |
 | Type `01` parity proof | Re-standardized and independently live verified 2026-07-24 through `make test-type01` |
 | Legacy stopping boundary | Complete |
-| Modern pipeline | Built during the week under `modern/` for Types `01` and `06` (ingest packages for `02`–`05`). Specified by [`modern.md`](modern.md) |
+| Modern pipeline | Built during the week under `modern/` for Types `01` and `06`; Types `02`–`05` ingest during the week, lakehouse on 2026-09-10. Specified by [`modern.md`](modern.md) |
 | Inbound customer drop | Compiled under [`spec/`](../spec/README.md) for Types `01`–`05`; Type `06` docked Night 5 |
 | Dark Factory | `modern/scripts/factory_e2e.py`, Night 5. The day-five red pill landed: Type `06` exposed a `CONFIRMED_LEGACY_DEFECT` — classified, and this plant was not edited to hide it |
 

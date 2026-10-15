@@ -68,7 +68,7 @@ Tuesday night the legacy is specified, structured, and designed as leaves.
 
 | Already on the tree | Written during the week |
 |---|---|
-| Legacy plant, five contracts, DataGen, oracles | Second Brain (Day 1, queried all week) + OntoLayer, Converge artifacts, `modern/` for Types `01`–`05` (and `06` on Day 5) |
+| Legacy plant, five contracts, DataGen, oracles | Second Brain (Day 1, queried all week) + OntoLayer, Converge artifacts, `modern/`: Type `01` end to end, Types `02`–`05` ingest, Type `06` on Day 5. Types `02`–`05` lakehouse came after the week (2026-09-10) |
 | Inbound packs `01`–`05` under `spec/` | ADRs, seams, Task-Specs under [`docs/`](../docs/README.md) (Day 2+) |
 | `validation/golden-match/golden_match.py` | Modern observations attached to that referee |
 | This folder (scope) | Hour-by-hour in [`run/`](../run/README.md); Day 1 PPT is closed |

@@ -39,3 +39,14 @@ stay **queued** until an owner signs and a packet lands. The `02`–`05`
 **lakehouse** leaves have no code. `evidence/` is gitignored, so on a fresh
 clone none of the packets named above are present; the settled and stalled
 rows are claims about the night's terminal, not about git.
+
+**Board vs disk (2026-09-10).** The note above is superseded for Types
+`01`–`05`. The four `02`–`05` **lakehouse** leaves now have code
+(`modern/scripts/run_type0N_gold.py`, `modern/validation/attach_type0N.py`;
+Bronze/Silver/Gold as DuckDB SQL, no dbt models). All sixteen Type
+`01`–`05` leaves were accepted **Tier 2, owner-supervised** — one acceptance
+record each in `cvg/.taskspec/acceptance/`, `accepted: true` in the
+`cvg/tasks/` copies, and the Linear cards (CVG-32…47) are Done. They are not
+Converge `done`: every loop settlement on this repo fails `HANDOFF_STALE`.
+The `docs/tasks/` frontmatter and both `_state.yaml` files were not
+regenerated and still read `ready`. The two Type `06` rows are unchanged.

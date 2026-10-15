@@ -49,10 +49,10 @@ second implementation**. Neither may edit `contracts/`, `legacy/`,
 
 | Frozen on this tree | Built during the week |
 |---|---|
-| Five signed type contracts (`01`–`05`) | Type `01` `modern/` on Days 2–3 (parser, then landing → Gold). Types `02`–`05` on Day 4 |
+| Five signed type contracts (`01`–`05`; `06` added Night 5) | Type `01` `modern/` on Days 2–3 (parser, then landing → Gold). Types `02`–`05` ingest on Day 4; their lakehouse on 2026-09-10 |
 | DataGen, SFTP, Java 21, PostgreSQL | Golden-match wiring against live modern observations |
 | Independent oracles under `validation/oracle/` | One vertical at a time, `01` first (Wed), remainder generated Thu |
-| Inbound packs for `01`–`05` under [`spec/`](../spec/README.md) | Day 1: brain + graph + Capture → Intent. Day 2: Bind, landing ADRs, ingest sign, parser leaf. Day 3: lakehouse ADRs, `consensus-lakehouse.md`, Type 01 Gold leaves |
+| Inbound packs for `01`–`05` under [`spec/`](../spec/README.md) (`06` docked Night 5) | Day 1: brain + graph + Capture → Intent. Day 2: Bind, landing ADRs, ingest sign, parser leaf. Day 3: lakehouse ADRs, `consensus-lakehouse.md`, Type 01 Gold leaves |
 | Human Second Brain ([`brain/notebooklm/`](../brain/notebooklm/README.md), nine packs) | Queried Days 2–4. **No tenth source.** Type `06` is a new source on Friday, not in the zip |
 | OntoLayer over live Postgres | Without (`make ontology-ask-sql`) then with (`make ontology-ask` / MCP) |
 | `validation/golden-match/golden_match.py` | Tests, Make targets, `evidence/modern/` |

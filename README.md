@@ -42,7 +42,7 @@ Done when `evidence/B202607230000001/reconciliation.json` reads **MATCHED**, net
 
 This repository is the **base use case** for an agentic-engineering bootcamp: a frozen SFTP → Java 21 → PostgreSQL settlement line, five live file types plus the sixth the factory unpacked on Night 5, and the inbound drop the customer actually mailed.
 
-The five Nights have run. `modern/` is on the tree (Types `01`–`06` ingest, dlt → dbt Gold for `01` and `06`, Dagster lineage, golden-match). Type `06` is classified, not repaired: the plant misses a cent, `CONFIRMED_LEGACY_DEFECT`, `legacy/` untouched.
+The five Nights have run. `modern/` is on the tree: Types `01`–`06` ingest, dlt → Bronze/Silver/Gold → golden-match for all six types (dbt for `01` and `06`; DuckDB SQL inside `run_type0N_gold.py` for `02`–`05`, built 2026-09-10), Dagster lineage for `01`. Type `06` is classified, not repaired: the plant misses a cent, `CONFIRMED_LEGACY_DEFECT`, `legacy/` untouched.
 
 | You are | You are not |
 |---|---|
@@ -89,7 +89,7 @@ flowchart TB
 
 Legacy’s first write is **CSV on SFTP**. Modern’s first write is **Parquet in `modern/landing/`**. Mixing those destinations is a failed day. Type `06` was sealed until Friday; it is in `spec/`, `contracts/`, and `modern/` now.
 
-`modern/` has no Make targets. It runs from `modern/scripts/` in its own venvs (`bootstrap.sh`, then `night_e2e.sh` for the whole line, `factory_e2e.py --type NN` for one type). Landing Parquet, DuckDB, and `evidence/` are gitignored — a clone must run the nights before it can show them.
+`modern/` has no Make targets. It runs from `modern/scripts/` in its own venvs (`bootstrap.sh`, then `night_e2e.sh` for the Night 5 line — Types `01` and `06` — `run_type0N_gold.py` for one type's Gold, `factory_e2e.py --type NN` for one type's gates). Landing Parquet, DuckDB, and `evidence/` are gitignored — a clone must run the nights before it can show them.
 
 ---
 
@@ -107,7 +107,7 @@ Update **Status** as each night closes. Do not invent a Pass the brief did not a
 | **4** | Orchestrator | Loop + eval | Context · Eval · Loop. Then **6–8** crank. Linear. Type `05` unattended | Type 01 trail assembled. Remaining SWE+DE generated. Packet on settle. Small `HALF_UP` pill | **ran** — `cvg init`, `02`–`05` ingest packages, Dagster |
 | **5** | Dark Factory | Orchestration | Full 0–8 on sealed Type `06` | Classify. Do not patch `legacy/` | **ran** — Type `06` signed 2026-08-28, stalls `CONFIRMED_LEGACY_DEFECT` |
 
-Still open after the week: Types `02`–`05` **lakehouse** leaves (dbt models, `attach_type0N.py`) are tasked, not built. The Task-Spec state files (`docs/tasks/_state.yaml`, `cvg/tasks/_state.yaml`) still project every leaf as `ready` — see [`docs/tasks/_linear-board.md`](docs/tasks/_linear-board.md).
+After the week (2026-09-10): Types `02`–`05` **lakehouse** leaves were built (`modern/scripts/run_type0N_gold.py`, `modern/validation/attach_type0N.py`; Bronze/Silver/Gold as DuckDB SQL, no dbt models). All sixteen Type `01`–`05` leaves were then accepted **Tier 2, owner-supervised** — records in `cvg/.taskspec/acceptance/`. They are not Converge `done` (loop settlement fails `HANDOFF_STALE`). The two Type `06` leaves are not accepted. The Task-Spec state files (`docs/tasks/_state.yaml`, `cvg/tasks/_state.yaml`) still project every leaf as `ready` — see [`docs/tasks/_linear-board.md`](docs/tasks/_linear-board.md).
 
 ```mermaid
 flowchart LR
@@ -124,7 +124,7 @@ flowchart LR
 | **Scope** | [`agenda/`](agenda/README.md) — what the night closes |
 | **Staff clock** | Night 1: [`run/d1/`](run/d1/README.md) (17 beats). Night 2: [`run/d2/`](run/d2/README.md) (12). Night 3: [`run/d3/`](run/d3/README.md) (13). Night 4: [`run/d4/`](run/d4/README.md) (9). Night 5: [`run/d5/`](run/d5/README.md) (pre-flight `00` + 6) |
 | **What the room sees** | [`presentation/`](presentation/README.md) — all five Night decks on disk. Identify by `data-act-name` |
-| **Converge papers** | [`docs/`](docs/README.md) — three signed Consensus (ingest, lakehouse, Type 06), ADRs 0001–0015, seams, eighteen Task-Spec leaves |
+| **Converge papers** | [`docs/`](docs/README.md) — three signed Consensus (ingest, lakehouse, Type 06), ADRs 0001–0015, seams, eighteen Task-Spec leaves (sixteen accepted Tier 2) |
 | **Method kits** | [`ebooks/`](ebooks/README.md) — Converge, SeamWise, Task-Spec briefs and rendered books. The kit HTML decks left `presentation/` |
 | **Engagement map** | [`plans/`](plans/README.md) — legacy, modern, factory seed |
 
@@ -253,7 +253,7 @@ Root control plane: `Makefile`, `compose.yaml`, `.env.example`.
 | [`cvg/`](cvg/INDEX.md) | Converge referee workspace (`cvg init`, Night 4). Lane charters, task copies, execution profiles. Papers stay in `docs/` |
 | [`transcripts/`](transcripts/README.md) | Live Night captions (`.vtt`), all five Nights. Speech, not the brief |
 | [`assets/`](assets/) | Images and logos the decks reference |
-| [`validation/golden-match/`](validation/README.md) | Modern referee — attached by `modern/validation/attach_type01.py` and `attach_type06.py` |
+| [`validation/golden-match/`](validation/README.md) | Modern referee — attached by `modern/validation/attach_type01.py` … `attach_type06.py` |
 | `evidence/` | Per-run packet. `make clean` removes it. Open in the **terminal** |
 | `modern/` | **Must not exist on Day 1.** Day 2 designs it. On the tree since Night 2's leaf was cranked; Type `06` landed Night 5 |
 
@@ -266,7 +266,7 @@ cvg/           referee  — cvg workspace, lanes, task copies
 ontology/      graph    — live Postgres, read-only MCP
 brain/         memory   — NotebookLM pack, types 01–05
 evidence/      the run  — MATCHED or it did not happen (gitignored)
-modern/        second plant — landing → dlt → dbt → golden-match
+modern/        second plant — landing → dlt → Bronze/Silver/Gold → golden-match
 ```
 
 ---

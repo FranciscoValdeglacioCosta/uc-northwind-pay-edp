@@ -11,7 +11,7 @@ the rendered book.
 |---|---|---|---|
 | Converge | [`brf-converge.md`](brf-converge.md) | [`ebook-converge.pdf`](ebook-converge.pdf) | the spine, 0–8, one human barrier |
 | SeamWise | [`brf-seamwise.md`](brf-seamwise.md) | [`ebook-seamwise.pdf`](ebook-seamwise.pdf) | Pass 3 · Decompose |
-| Task-Spec | [`brf-task-spec.md`](brf-task-spec.md) | `ebook-task-spec.pdf` — **gitignored** (111 MB); build locally | Pass 5 · Tasking. Mesh is **not** inside it |
+| Task-Spec | [`brf-task-spec.md`](brf-task-spec.md) | `ebook-task-spec.pdf` — **gitignored** (over 85 MB; a 111.9 MB render once blocked every push); build locally | Pass 5 · Tasking. Mesh is **not** inside it |
 
 `brief-converge-trv.src.html` + `build-brief-converge-trv.py` render the
 Converge travel reference; intermediates land in `ebooks/build/` and the

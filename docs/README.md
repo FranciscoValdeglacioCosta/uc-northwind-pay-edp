@@ -34,7 +34,7 @@ Scope: [`agenda/d3.md`](../agenda/d3.md) · [`agenda/d4.md`](../agenda/d4.md) ·
 
 ---
 
-## On disk now (after Night 5)
+## On disk now (after Night 5, updated 2026-09-10)
 
 All five Nights have written here. Type 01 Gold **source and papers
 are on this checkout**; so are the Type `06` papers and the Night 4
@@ -93,13 +93,14 @@ Product these papers authorized (source tracked in `modern/`; runtime gitignored
 
 - `modern/ingestion/src/northwind_pay/types/0{1..6}-*/` six five-file packages (Night 2 leaf, Night 4 generate, Night 5 kit)
 - `modern/lakehouse/dlt/registration.py` · `modern/dbt/` Bronze/Silver/Gold for Type `01` **and** Type `06` · `modern/orchestration/definitions.py` Dagster (ADR 0012)
-- `modern/validation/attach_type01.py`, `attach_type06.py` — golden-match attached
+- `modern/validation/attach_type01.py` … `attach_type06.py` — golden-match attached for all six types
+- `modern/scripts/run_type02_gold.py` … `run_type05_gold.py` — Types `02`–`05` Bronze/Silver/Gold as DuckDB SQL (2026-09-10; no dbt models)
 - `modern/landing/B202607230000001/` Parquet + manifest · `modern/lakehouse/ducklake/northwind_modern.duckdb`
 - `evidence/modern/B202607230000001/golden-match.json` both questions yes
 - `evidence/modern/B202607230000004/golden-match.json` `CONFIRMED_SOURCE_DEFECT` · 173.44 kept · no Parquet
 - `evidence/factory/type-06.json` stage 6 **stalled** · `CONFIRMED_LEGACY_DEFECT` · `legacy/` untouched
 
-Not built: Types `02`–`05` **lakehouse** leaves (`attach_type0N.py`, `run_type0N_gold.py`, dbt models). Their Task-Specs are on disk and signed in `cvg/tasks/`; the artifacts are not. Both `_state.yaml` files still project every leaf as `ready` — see [`tasks/_linear-board.md`](tasks/_linear-board.md).
+Built after the week (2026-09-10): Types `02`–`05` **lakehouse** leaves (`run_type0N_gold.py`, `attach_type0N.py`). Bronze/Silver/Gold for these four types are DuckDB SQL inside the run script, not dbt models. The sixteen Type `01`–`05` leaves were accepted **Tier 2, owner-supervised** the same day; records are in `cvg/.taskspec/acceptance/`, and the signed, accepted copies are in `cvg/tasks/`. The two Type `06` leaves are not accepted. Both `_state.yaml` files still project every leaf as `ready` — see [`tasks/_linear-board.md`](tasks/_linear-board.md).
 
 Keep **173.44**. Ingest sign stays canonical. Thursday **walked this folder as the trail** (requisites → problem → decisions → SWE → DE/AE → tonight), then remaining types. It did not recut Tuesday’s papers. It did not re-ask where paid lives.
 

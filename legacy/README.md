@@ -6,9 +6,10 @@ pass. When legacy and modern disagree, this folder is evidence — never a
 variable.
 
 For scale: `contracts/` is ~2,850 lines of YAML and the entire modern
-platform is 7,700. Legacy is 4.2× the size of its replacement, and that
-ratio is the business case. (Counts as of 2026-09-03, after the Night 5
-Type `06` kit was added to both plants.)
+platform is 9,670. Legacy (32,588) is 3.4× the size of its replacement, and that
+ratio is the business case. (Non-Markdown lines in tracked files, as of
+2026-09-10, after the Types `02`–`05` lakehouse scripts were added. On
+2026-09-03 the modern count was 7,700 and the ratio 4.2×.)
 
 | Component | Lines | Files | Language | Role |
 |---|---:|---:|---|---|

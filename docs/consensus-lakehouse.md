@@ -105,3 +105,8 @@ not author Dagster.
 - 2026-08-28 (Night 5): Type 06 rode the same legs and stalled at
   golden-match — `CONFIRMED_LEGACY_DEFECT` ([`consensus-type-06.md`](consensus-type-06.md)).
   This sign was not recut.
+- 2026-09-10: Types `02`–`05` lakehouse built (`modern/scripts/run_type0N_gold.py`,
+  `modern/validation/attach_type0N.py`). Bronze/Silver/Gold for these four
+  types are DuckDB SQL inside the run script, not dbt models. All Type `01`–`05`
+  lakehouse leaves accepted **Tier 2, owner-supervised** (`cvg/.taskspec/acceptance/`).
+  This sign was not recut.
